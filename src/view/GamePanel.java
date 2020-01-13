@@ -43,15 +43,17 @@ public class GamePanel extends JPanel {
 
 	public void showPause(boolean pause) {
 		this.pause = pause;
-		this.update();
 	}
 
 	public void showLost(boolean lost) {
 		this.lost = lost;
-		this.update();
 	}
 
-	private void paintTile(Graphics g, int x, int y, int type, int direction) {
+	private void paintTile(Graphics g, int x, int y, int type, int direction, int color, boolean transparent) {
+		if (type == 4)
+			color = this.bombColor ? 0xff0000 : 0x0;
+		color = transparent ? color | 0x5f000000 : color;
+		g.setColor(new Color(color, transparent));
 		switch (type) {
 		case 0:
 			g.fillRect(x * this.unit + 1, y * this.unit + 1, this.unit - 2, this.unit - 2);
@@ -135,7 +137,6 @@ public class GamePanel extends JPanel {
 			}
 			break;
 		case 4:
-			g.setColor(this.bombColor ? Color.red : Color.black);
 			for (int x1 = 2; x1 < this.unit - 2; x1++)
 				for (int y1 = 2; y1 < this.unit - 2; y1++)
 					if ((x1 - this.unit / 2) * (x1 - this.unit / 2)
@@ -153,13 +154,11 @@ public class GamePanel extends JPanel {
 				g.fillRect(x * this.unit, (y - 3) * this.unit, this.unit, this.unit);
 				int type = this.game.getType(x, y);
 				int direction = this.game.getDirection(x, y);
-				g.setColor(!this.game.isComplete(x, y) && this.game.getType(x, y) == 0 ? Color.black
-				        : new Color(Global.getColor(type)));
-				this.paintTile(g, x, y - 3, type, direction);
-				if (this.game.isComplete(x, y) && type != 0) {
-					g.setColor(new Color(Global.getColor(4 - type)));
-					this.paintTile(g, x, y - 3, 4 - type, (direction + 2) % 4);
-				}
+				this.paintTile(g, x, y - 3, type, direction,
+				        !this.game.isComplete(x, y) && this.game.getType(x, y) == 0 ? 0x0 : Global.getColor(type),
+				        false);
+				if (this.game.isComplete(x, y) && type != 0)
+					this.paintTile(g, x, y - 3, 4 - type, (direction + 2) % 4, Global.getColor(4 - type), false);
 			}
 		Tile tile = this.game.getTile();
 		if (tile != null) {
@@ -168,8 +167,7 @@ public class GamePanel extends JPanel {
 				int y = tile.getY(i);
 				int type = tile.getType(i);
 				int direction = tile.getDirection(i);
-				g.setColor(new Color(Global.getColor(type)));
-				this.paintTile(g, x, y - 3, type, direction);
+				this.paintTile(g, x, y - 3, type, direction, Global.getColor(type), false);
 			}
 			tile = this.game.getPredictedTile();
 			for (int i = 0, size = tile.getSize(); i < size; i++) {
@@ -177,8 +175,7 @@ public class GamePanel extends JPanel {
 				int y = tile.getY(i);
 				int type = tile.getType(i);
 				int direction = tile.getDirection(i);
-				g.setColor(new Color(Global.getColor(type) | 0x5f000000, true));
-				this.paintTile(g, x, y - 3, type, direction);
+				this.paintTile(g, x, y - 3, type, direction, Global.getColor(type), true);
 			}
 		}
 		if (this.lost) {

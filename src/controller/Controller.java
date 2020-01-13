@@ -75,6 +75,14 @@ public class Controller {
 	}
 
 	public void update() {
+		if (this.paused) {
+			this.runner.pause();
+			this.bombTimer.pause();
+		} else {
+			this.runner.resume();
+			this.bombTimer.resume();
+		}
+		this.gameView.showPause(this.paused);
 		this.gameView.update();
 		this.optionView.update();
 	}
@@ -157,18 +165,14 @@ public class Controller {
 	public void pause() {
 		if (this.started && !this.paused) {
 			this.paused = true;
-			this.runner.pause();
-			this.bombTimer.pause();
-			this.gameView.showPause(true);
+			this.update();
 		}
 	}
 
 	public void resume() {
 		if (this.started && this.paused) {
 			this.paused = false;
-			this.runner.resume();
-			this.bombTimer.resume();
-			this.gameView.showPause(false);
+			this.update();
 		}
 	}
 

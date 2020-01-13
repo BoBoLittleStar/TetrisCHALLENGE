@@ -48,6 +48,16 @@ public class MainFrame extends JFrame implements KeyListener {
 			break;
 		case KeyEvent.VK_SPACE:
 			this.ctrl.fall();
+			break;
+		case KeyEvent.VK_P:
+			if (this.ctrl.paused())
+				this.ctrl.resume();
+			else
+				this.ctrl.pause();
+			break;
+		case KeyEvent.VK_R:
+			this.ctrl.start();
+			break;
 		}
 	}
 
