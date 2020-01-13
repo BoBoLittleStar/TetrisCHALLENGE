@@ -22,29 +22,20 @@ public class TypeH extends Tile {
 	}
 
 	@Override
-	protected Tile clone() {
-		Tile t = new TypeH();
+	protected TypeH clone() {
+		TypeH t = new TypeH();
 		for (int i = 0, size = t.getSize(); i < size; i++) {
 			t.setX(i, this.getX(i));
 			t.setY(i, this.getY(i));
 			t.setType(i, this.getType(i));
 			t.setDirection(i, this.getDirection(i));
 		}
-		t.setDirection(this.getDirection());
 		return t;
 	}
 
 	@Override
-	public Tile turn(int direction) {
-		Tile t = this.clone();
-		for (int i = 0; i < direction; i++)
-			t = t.turn();
-		return t;
-	}
-
-	@Override
-	public Tile turn() {
-		Tile t = this.clone();
+	public TypeH turn() {
+		TypeH t = this.clone();
 		int temp = t.getType(0);
 		t.setType(0, t.getType(3));
 		t.setType(3, t.getType(2));

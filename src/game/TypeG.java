@@ -11,20 +11,19 @@ public class TypeG extends Tile {
 	}
 
 	@Override
-	protected Tile clone() {
-		Tile t = new TypeG();
+	protected TypeG clone() {
+		TypeG t = new TypeG();
 		for (int i = 0, size = t.getSize(); i < size; i++) {
 			t.setX(i, this.getX(i));
 			t.setY(i, this.getY(i));
 			t.setType(i, this.getType(i));
 			t.setDirection(i, this.getDirection(i));
 		}
-		t.setDirection(this.getDirection());
 		return t;
 	}
 
 	@Override
-	public Tile turn() {
+	public TypeG turn() {
 		return this.clone();
 	}
 }

@@ -3,7 +3,6 @@ package game;
 public abstract class Tile {
 	private int size;
 	private int[] bricks;
-	private int direction;
 
 	protected Tile(int size) {
 		this.size = size;
@@ -14,16 +13,10 @@ public abstract class Tile {
 	protected abstract Tile clone();
 
 	public Tile turn(int direction) {
-		this.direction = direction;
-		return this.turn();
-	}
-
-	protected void setDirection(int direction) {
-		this.direction = direction;
-	}
-
-	public int getDirection() {
-		return this.direction;
+		Tile t = this.clone();
+		for (int i = 0; i < direction % 4; i++)
+			t = t.turn();
+		return t;
 	}
 
 	public Tile moveLeft() {

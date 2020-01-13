@@ -76,7 +76,7 @@ public class OptionPanel extends JPanel implements MouseListener {
 		this.pause.addMouseListener(this);
 		this.resume.addMouseListener(this);
 		this.quit.addMouseListener(this);
-		this.setPreferredSize(new Dimension(width + 20, 5 * unit + 260));
+		this.setPreferredSize(new Dimension(width + 20, 5 * unit + 300));
 		this.setLayout(null);
 		this.add(this.start);
 		this.add(this.pause);

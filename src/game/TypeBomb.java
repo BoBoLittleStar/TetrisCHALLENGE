@@ -12,8 +12,8 @@ public class TypeBomb extends Tile {
 	}
 
 	@Override
-	protected Tile clone() {
-		Tile t = new TypeBomb();
+	protected TypeBomb clone() {
+		TypeBomb t = new TypeBomb();
 		t.setX(0, this.getX(0));
 		t.setY(0, this.getY(0));
 		t.setType(0, this.getType(0));
@@ -22,7 +22,7 @@ public class TypeBomb extends Tile {
 	}
 
 	@Override
-	public Tile turn() {
+	public TypeBomb turn() {
 		return this.clone();
 	}
 }

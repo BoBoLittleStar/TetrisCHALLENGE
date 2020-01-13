@@ -36,9 +36,9 @@ public class Game {
 		case 2:
 			return new TypeC((this.width - 1) / 2, 3).turn((int) (Math.random() * 4));
 		case 3:
-			return new TypeE((this.width - 1) / 2, 3).turn((int) (Math.random() * 4));
-		case 4:
 			return new TypeD((this.width - 1) / 2, 3).turn((int) (Math.random() * 4));
+		case 4:
+			return new TypeE((this.width - 1) / 2, 3).turn((int) (Math.random() * 4));
 		case 5:
 			return new TypeF((this.width - 1) / 2, 3).turn((int) (Math.random() * 4));
 		case 6:
